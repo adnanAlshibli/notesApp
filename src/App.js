@@ -1,31 +1,32 @@
-import React, { useState, useEffect } from 'react';
-import './App.css';
-import NotesContainer from './components/Notes/NotesContainer';
-import NotesList from './components/Notes/NotesList';
-import Note from './components/Notes/Note';
-import NoteForm from './components/Notes/NoteForm';
-import Preview from './components/Preview';
-import Message from './components/Message';
-import Alert from './components/Alert';
-
+import React, { useState, useEffect } from "react";
+import "./App.css";
+import NotesContainer from "./components/Notes/NotesContainer";
+import NotesList from "./components/Notes/NotesList";
+import Note from "./components/Notes/Note";
+import NoteForm from "./components/Notes/NoteForm";
+import Preview from "./components/Preview";
+import Message from "./components/Message";
+import Alert from "./components/Alert";
+// done
 function App() {
   const [notes, setNotes] = useState([]);
-  const [title, setTitle] = useState('');
-  const [content, setContent] = useState('');
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
   const [selectedNote, setSelectedNote] = useState(null);
   const [creating, setCreating] = useState(false);
   const [editing, setEditing] = useState(false);
   const [validationErrors, setValidationErrors] = useState([]);
 
   useEffect(() => {
-    if (localStorage.getItem('notes')) {
-      setNotes(JSON.parse(localStorage.getItem('notes')));
+    if (localStorage.getItem("notes")) {
+      setNotes(JSON.parse(localStorage.getItem("notes")));
     } else {
-      localStorage.setItem('notes', JSON.stringify([]));
+      localStorage.setItem("notes", JSON.stringify([]));
       setNotes([]);
     }
   }, []);
 
+  // done
   useEffect(() => {
     if (validationErrors.length !== 0) {
       setTimeout(() => {
@@ -44,11 +45,11 @@ function App() {
     const validationErrors = [];
     let passed = true;
     if (!title) {
-      validationErrors.push('الرجاء إدخال عنوان الملاحظة');
+      validationErrors.push("الرجاء إدخال عنوان الملاحظة");
       passed = false;
     }
     if (!content) {
-      validationErrors.push('الرجاء إدخال محتوى الملاحظة');
+      validationErrors.push("الرجاء إدخال محتوى الملاحظة");
       passed = false;
     }
     setValidationErrors(validationErrors);
@@ -68,8 +69,8 @@ function App() {
   //الانتقال إلى وضع إضافة ملاحظة
   const addNoteHandler = () => {
     setCreating(true);
-    setTitle('');
-    setContent('');
+    setTitle("");
+    setContent("");
     setEditing(false);
   };
 
@@ -89,10 +90,10 @@ function App() {
       content: content,
     };
     const updatedNotes = [...notes, note];
-    saveToLocalStorage('notes', updatedNotes);
+    saveToLocalStorage("notes", updatedNotes);
     setNotes(updatedNotes);
-    setTitle('');
-    setContent('');
+    setTitle("");
+    setContent("");
     setCreating(false);
     setSelectedNote(note.id);
   };
@@ -102,7 +103,7 @@ function App() {
     const updatedNotes = [...notes];
     const noteIndex = updatedNotes.findIndex((note) => note.id === noteId);
     updatedNotes.splice(noteIndex, 1);
-    saveToLocalStorage('notes', updatedNotes);
+    saveToLocalStorage("notes", updatedNotes);
     setNotes(updatedNotes);
     setSelectedNote(null);
   };
@@ -126,12 +127,12 @@ function App() {
       title: title,
       content: content,
     };
-    saveToLocalStorage('notes', updatedNotes);
+    saveToLocalStorage("notes", updatedNotes);
 
     setNotes(updatedNotes);
     setEditing(false);
-    setTitle('');
-    setContent('');
+    setTitle("");
+    setContent("");
   };
 
   //إحضار نموذج إضافة ملاحظة
